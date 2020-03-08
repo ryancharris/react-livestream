@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Embed your Twitch stream in your website automatically when you're live",
   "main": "./dist/index.js",
-  "author": "Ryan Harriis",
+  "author": "Ryan Harris",
   "license": "ISC",
   "repository": {
     "type": "git",
