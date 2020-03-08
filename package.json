@@ -1,0 +1,11 @@
+{
+  "name": "twitch-plugin",
+  "version": "1.0.0",
+  "description": "Embed your Twitch stream in your website automatically when you're live",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
