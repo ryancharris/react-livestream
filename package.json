@@ -1,7 +1,7 @@
 {
   "name": "twitch-plugin",
   "version": "1.0.0",
-  "description": "Embed your Twitch stream in your website automatically when you're live",
+  "description": "Embed your Twitch stream into your website automatically when you're live",
   "main": "./dist/index.js",
   "author": "Ryan Harris",
   "license": "ISC",
