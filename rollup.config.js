@@ -13,7 +13,11 @@ const config = {
       exclude: "node_modules/**"
     })
   ],
-  external: ["react"]
+  external: ["react"],
+  watch: {
+    include: "src/**",
+    exclude: "node_modules/**"
+  }
 };
 
 export default config;
