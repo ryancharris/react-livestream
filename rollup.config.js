@@ -1,5 +1,6 @@
 import babel from "rollup-plugin-babel";
-import resolve from "@rollup/plugin-node-resolve";
+// import resolve from "@rollup/plugin-node-resolve";
+// import commonjs from "@rollup/plugin-commonjs";
 
 const config = {
   input: "src/index.js",
@@ -8,12 +9,14 @@ const config = {
     format: "cjs"
   },
   plugins: [
-    resolve(),
-    babel({
-      exclude: "node_modules/**"
-    })
+    // resolve(),
+    // commonjs(),
+    babel()
+    // babel({
+    //   exclude: "node_modules/**"
+    // })
   ],
-  external: ["react"],
+  // external: ["react"],
   watch: {
     include: "src/**",
     exclude: "node_modules/**"

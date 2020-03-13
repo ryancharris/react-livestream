@@ -15,17 +15,18 @@
     "javascript"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup --watch --config rollup.config.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@emotion/core": "^10.0.28",
+    "prop-types": "^15.7.2"
+  },
   "devDependencies": {
     "@babel/core": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
     "@babel/preset-react": "^7.8.3",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
-    "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "rollup": "^2.0.2",
     "rollup-plugin-babel": "^4.4.0",
