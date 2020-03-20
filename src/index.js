@@ -3,8 +3,15 @@ import { useEffect, useState } from 'react'
 import { css, jsx } from '@emotion/core'
 import PropTypes from 'prop-types'
 
+// <TwitchPlugin
+//   apiKey={}
+//   userName={}
+//   aspectRatio={16 / 9}
+//   offlineComponent={}
+// />
+
 function TwitchPlugin(props) {
-  const { apiKey, userName, aspectRatio } = props
+  const { apiKey, userName, aspectRatio, offlineComponent } = props
   const [streamData, setStreamData] = useState(null)
 
   useEffect(() => {
@@ -49,7 +56,9 @@ function TwitchPlugin(props) {
         frameBorder="0"
       ></iframe>
     </div>
-  ) : null
+  ) : (
+    offlineComponent
+  )
 }
 
 export default TwitchPlugin
@@ -57,9 +66,11 @@ export default TwitchPlugin
 TwitchPlugin.propTypes = {
   apiKey: PropTypes.string.isRequired,
   aspectRatio: PropTypes.number,
+  offlineComponent: PropTypes.element,
   userName: PropTypes.string.isRequired
 }
 
 TwitchPlugin.defaultProps = {
-  aspectRatio: 16 / 9
+  aspectRatio: 16 / 9,
+  offlineComponent: null
 }
