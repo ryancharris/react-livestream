@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 function TwitchPlugin(props) {
   const {
-    apiKey,
+    twitchClientId,
     aspectRatio,
     mixerChannelId,
     offlineComponent,
@@ -13,12 +13,11 @@ function TwitchPlugin(props) {
     twitchUserName
   } = props
   const [isLive, setIsLive] = useState(false)
-  console.log(props)
 
   function fetchTwitchData() {
     fetch(`https://api.twitch.tv/helix/streams?user_login=${twitchUserName}`, {
       headers: {
-        'Client-ID': apiKey
+        'Client-ID': twitchClientId
       }
     })
       .then(async res => {
@@ -117,7 +116,7 @@ function TwitchPlugin(props) {
 export default TwitchPlugin
 
 TwitchPlugin.propTypes = {
-  apiKey: PropTypes.string.isRequired,
+  twitchClientId: PropTypes.string.isRequired,
   aspectRatio: PropTypes.number,
   mixerChannelId: PropTypes.string,
   offlineComponent: PropTypes.element,
