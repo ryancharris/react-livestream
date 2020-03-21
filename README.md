@@ -1,5 +1,17 @@
-# twitch-plugin
+# react-livestream
 
-Embed your Twitch stream into your website automatically when you're live.
+Automatically embed your livestream in your React app whenever you go live!
 
-Build with [React](https://github.com/facebook/react), [Rollup](https://github.com/rollup/rollup) and the [Twitch API](https://dev.twitch.tv/docs/api/reference).
+This package currently works with the following streaming platforms:
+
+1. [Twitch](https://www.twitch.tv/)
+2. [Mixer](https://www.mixer.com/)
+3. Coming soon: [YouTube](https://www.youtube.com/)
+
+### Intructions
+
+TBD
+
+### Notes
+
+Built with [React](https://github.com/facebook/react) and [Rollup](https://github.com/rollup/rollup).
