@@ -17,6 +17,7 @@ function ReactLivestream(props) {
     youtubeApiKey
   } = props
   const [isLive, setIsLive] = useState(false)
+  const [youtubeVideoId, setYoutubeVideoId] = useState(null)
   const iframeWrapperStyles = css`
     position: relative;
     &::before {
@@ -77,11 +78,12 @@ function ReactLivestream(props) {
     )
       .then(async res => {
         const response = await res.json()
-        console.log(response)
 
-        // if (channelId === mixerChannelId && online) {
-        //   setIsLive(true)
-        // }
+        if (response.items && response.items.length > 1) {
+          const streamInfo = response.items[0]
+          setIsLive(true)
+          setYoutubeVideoId(streamInfo.id.videoId)
+        }
       })
       .catch(err => {
         console.log('Error fetching data from YouTube API: ', err)
@@ -89,6 +91,7 @@ function ReactLivestream(props) {
   }
 
   useEffect(() => {
+    // TODO: Check props before making API call
     switch (platform) {
       case 'twitch':
         fetchTwitchData()
@@ -105,7 +108,7 @@ function ReactLivestream(props) {
     }
   }, [])
 
-  return !isLive ? (
+  return isLive ? (
     <div className="ReactLivestream" css={iframeWrapperStyles}>
       {platform === 'twitch' && (
         <iframe
@@ -128,7 +131,7 @@ function ReactLivestream(props) {
       {platform === 'youtube' && (
         <iframe
           css={iframeStyles}
-          src="https://www.youtube.com/embed/5qap5aO4i9A"
+          src={`https://www.youtube.com/embed/${youtubeVideoId}`}
           frameborder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
