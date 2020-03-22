@@ -18,6 +18,7 @@ function ReactLivestream(props) {
   } = props
   const [isLive, setIsLive] = useState(false)
   const [youtubeVideoId, setYoutubeVideoId] = useState(null)
+
   const iframeWrapperStyles = css`
     position: relative;
     &::before {
@@ -91,16 +92,33 @@ function ReactLivestream(props) {
   }
 
   useEffect(() => {
-    // TODO: Check props before making API call
     switch (platform) {
       case 'twitch':
-        fetchTwitchData()
+        if (twitchClientId && twitchUserName) {
+          fetchTwitchData()
+        } else {
+          console.error(
+            '[react-livestream] Twitch support requires a twitchClientId and twitchUserName prop'
+          )
+        }
         break
       case 'mixer':
-        fetchMixerData()
+        if (mixerChannelId) {
+          fetchMixerData()
+        } else {
+          console.error(
+            '[react-livestream] Mixer support requires a mixerChannelId prop'
+          )
+        }
         break
       case 'youtube':
-        fetchYoutubeData()
+        if (youtubeChannelId && youtubeApiKey) {
+          fetchYoutubeData()
+        } else {
+          console.error(
+            '[react-livestream] YouTube support requires a youtubeApiKey and youtubeChannelId prop'
+          )
+        }
         break
       default:
         console.error('Platform prop is required for react-livestream')
@@ -132,9 +150,9 @@ function ReactLivestream(props) {
         <iframe
           css={iframeStyles}
           src={`https://www.youtube.com/embed/${youtubeVideoId}`}
-          frameborder="0"
+          frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
+          allowFullScreen
         ></iframe>
       )}
     </div>
@@ -146,19 +164,19 @@ function ReactLivestream(props) {
 export default ReactLivestream
 
 ReactLivestream.propTypes = {
-  twitchClientId: PropTypes.string,
   mixerChannelId: PropTypes.num,
   offlineComponent: PropTypes.element,
   platform: PropTypes.string.isRequired,
+  twitchClientId: PropTypes.string,
   twitchUserName: PropTypes.string,
   youtubeChannelId: PropTypes.string,
   youtubeApiKey: PropTypes.string
 }
 
 ReactLivestream.defaultProps = {
-  twitchClientId: null,
   mixerChannelId: null,
   offlineComponent: null,
+  twitchClientId: null,
   twitchUserName: null,
   youtubeChannelId: null,
   youtubeApiKey: null
