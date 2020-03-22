@@ -1,18 +1,20 @@
 {
   "name": "twitch-plugin",
   "version": "1.0.0",
-  "description": "Embed your Twitch stream into your website automatically when you're live",
+  "author": "Ryan Harris <harrisryan1@gmail.com> (https://ryanharris.dev)",
+  "description": "Automatically embed your livestream in your React app whenever you go live!",
   "main": "./dist/index.js",
-  "author": "Ryan Harris",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ryancharris/twitch-plugin"
+    "url": "https://github.com/ryancharris/react-livestream"
   },
   "keywords": [
-    "twitch",
     "react",
-    "javascript"
+    "javascript",
+    "twitch",
+    "mixer",
+    "youtube"
   ],
   "scripts": {
     "build": "rollup --watch --config rollup.config.js"
