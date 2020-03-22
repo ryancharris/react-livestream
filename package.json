@@ -1,5 +1,5 @@
 {
-  "name": "twitch-plugin",
+  "name": "react-livestream",
   "version": "1.0.0",
   "author": "Ryan Harris <harrisryan1@gmail.com> (https://ryanharris.dev)",
   "description": "Automatically embed your livestream in your React app whenever you go live!",
