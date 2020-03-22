@@ -23,7 +23,7 @@ import ReactLivestream from 'twitch-plugin'
 function OfflineComponent() {
   return (
     <div>
-      <p>I'm offline now, but checkout my stream on Fridays at 5 PM EST</p>
+      <p>I am offline now, but checkout my stream on Fridays at 5 PM EST</p>
     </div>
   )
 }
