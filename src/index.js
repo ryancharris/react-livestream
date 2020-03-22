@@ -16,6 +16,7 @@ function ReactLivestream(props) {
     youtubeChannelId,
     youtubeApiKey
   } = props
+
   const [isLive, setIsLive] = useState(false)
   const [youtubeVideoId, setYoutubeVideoId] = useState(null)
 
@@ -91,34 +92,81 @@ function ReactLivestream(props) {
       })
   }
 
+  function processMixerStream() {
+    if (mixerChannelId) {
+      fetchMixerData()
+    } else {
+      console.error(
+        '[react-livestream] Mixer support requires a mixerChannelId prop'
+      )
+    }
+  }
+
+  function processTwitchStream() {
+    if (twitchClientId && twitchUserName) {
+      fetchTwitchData()
+    } else {
+      console.error(
+        '[react-livestream] Twitch support requires a twitchClientId and twitchUserName prop'
+      )
+    }
+  }
+
+  function processYoutubeStream() {
+    if (youtubeChannelId && youtubeApiKey) {
+      fetchYoutubeData()
+    } else {
+      console.error(
+        '[react-livestream] YouTube support requires a youtubeApiKey and youtubeChannelId prop'
+      )
+    }
+  }
+
+  function embedIframe() {
+    switch (platform) {
+      case 'mixer':
+        return (
+          <iframe
+            css={iframeStyles}
+            i18n-title="channel#ShareDialog:playerEmbedFrame|Embed player Frame copied from share dialog"
+            allowFullScreen="true"
+            src={`https://mixer.com/embed/player/${mixerChannelId}?disableLowLatency=1`}
+          ></iframe>
+        )
+      case 'twitch':
+        return (
+          <iframe
+            css={iframeStyles}
+            allowFullScreen
+            src={`https://player.twitch.tv/?channel=${twitchUserName}`}
+            frameBorder="0"
+          ></iframe>
+        )
+      case 'youtube':
+        return (
+          <iframe
+            css={iframeStyles}
+            src={`https://www.youtube.com/embed/${youtubeVideoId}`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        )
+
+        break
+    }
+  }
+
   useEffect(() => {
     switch (platform) {
-      case 'twitch':
-        if (twitchClientId && twitchUserName) {
-          fetchTwitchData()
-        } else {
-          console.error(
-            '[react-livestream] Twitch support requires a twitchClientId and twitchUserName prop'
-          )
-        }
-        break
       case 'mixer':
-        if (mixerChannelId) {
-          fetchMixerData()
-        } else {
-          console.error(
-            '[react-livestream] Mixer support requires a mixerChannelId prop'
-          )
-        }
+        processMixerStream()
+        break
+      case 'twitch':
+        processTwitchStream()
         break
       case 'youtube':
-        if (youtubeChannelId && youtubeApiKey) {
-          fetchYoutubeData()
-        } else {
-          console.error(
-            '[react-livestream] YouTube support requires a youtubeApiKey and youtubeChannelId prop'
-          )
-        }
+        processYoutubeStream()
         break
       default:
         console.error('Platform prop is required for react-livestream')
@@ -128,33 +176,7 @@ function ReactLivestream(props) {
 
   return isLive ? (
     <div className="ReactLivestream" css={iframeWrapperStyles}>
-      {platform === 'twitch' && (
-        <iframe
-          css={iframeStyles}
-          allowFullScreen
-          src={`https://player.twitch.tv/?channel=${twitchUserName}`}
-          frameBorder="0"
-        ></iframe>
-      )}
-
-      {platform === 'mixer' && (
-        <iframe
-          css={iframeStyles}
-          i18n-title="channel#ShareDialog:playerEmbedFrame|Embed player Frame copied from share dialog"
-          allowfullscreen="true"
-          src={`https://mixer.com/embed/player/${mixerChannelId}?disableLowLatency=1`}
-        ></iframe>
-      )}
-
-      {platform === 'youtube' && (
-        <iframe
-          css={iframeStyles}
-          src={`https://www.youtube.com/embed/${youtubeVideoId}`}
-          frameBorder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-      )}
+      {embedIframe()}
     </div>
   ) : offlineComponent ? (
     offlineComponent
