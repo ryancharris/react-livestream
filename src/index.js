@@ -146,7 +146,7 @@ function ReactLivestream(props) {
         return (
           <iframe
             css={iframeStyles}
-            src={`https://www.youtube.com/embed/${youtubeVideoId}`}
+            src={`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&mute=1`}
             frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
