@@ -169,7 +169,9 @@ function ReactLivestream(props) {
         processYoutubeStream()
         break
       default:
-        console.error('Platform prop is required for react-livestream')
+        console.error(
+          '[react-livestream] Platform prop is required for this package to work 🤘'
+        )
         break
     }
   }, [])
