@@ -16,7 +16,7 @@ If you are not currently broadcasting, nothing will be rendered in the DOM unles
 
 ```javascript
 import React from 'react'
-import ReactLivestream from 'twitch-plugin'
+import ReactLivestream from 'react-livestream'
 
 // Optional component to be rendered
 // when you're not streaming
