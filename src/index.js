@@ -188,7 +188,7 @@ function ReactLivestream(props) {
 export default ReactLivestream
 
 ReactLivestream.propTypes = {
-  mixerChannelId: PropTypes.num,
+  mixerChannelId: PropTypes.number,
   offlineComponent: PropTypes.element,
   platform: PropTypes.string.isRequired,
   twitchClientId: PropTypes.string,
