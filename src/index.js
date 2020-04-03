@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { useEffect, useState } from 'react'
-import { css, jsx } from '@emotion/core'
+import React from 'react'
+// import { css, jsx } from '@emotion/core'
 import PropTypes from 'prop-types'
 
 const MIXER_API_URL = 'https://mixer.com/api/v1/channels/'
@@ -17,24 +16,24 @@ function ReactLivestream(props) {
     youtubeApiKey
   } = props
 
-  const [isLive, setIsLive] = useState(false)
-  const [youtubeVideoId, setYoutubeVideoId] = useState(null)
+  const [isLive, setIsLive] = React.useState(false)
+  const [youtubeVideoId, setYoutubeVideoId] = React.useState(null)
 
-  const iframeWrapperStyles = css`
-    position: relative;
-    &::before {
-      content: '';
-      display: block;
-      padding-bottom: calc(100% / (16 / 9));
-    }
-  `
-  const iframeStyles = css`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  `
+  // const iframeWrapperStyles = css`
+  //   position: relative;
+  //   &::before {
+  //     content: '';
+  //     display: block;
+  //     padding-bottom: calc(100% / (16 / 9));
+  //   }
+  // `
+  // const iframeStyles = css`
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  // `
 
   function fetchTwitchData() {
     fetch(`${TWITCH_API_URL}${twitchUserName}`, {
@@ -127,7 +126,7 @@ function ReactLivestream(props) {
       case 'mixer':
         return (
           <iframe
-            css={iframeStyles}
+            // css={iframeStyles}
             i18n-title="channel#ShareDialog:playerEmbedFrame|Embed player Frame copied from share dialog"
             allowFullScreen="true"
             src={`https://mixer.com/embed/player/${mixerChannelId}?disableLowLatency=1`}
@@ -136,7 +135,7 @@ function ReactLivestream(props) {
       case 'twitch':
         return (
           <iframe
-            css={iframeStyles}
+            // css={iframeStyles}
             allowFullScreen
             src={`https://player.twitch.tv/?channel=${twitchUserName}`}
             frameBorder="0"
@@ -145,7 +144,7 @@ function ReactLivestream(props) {
       case 'youtube':
         return (
           <iframe
-            css={iframeStyles}
+            // css={iframeStyles}
             src={`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&mute=1`}
             frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -157,7 +156,7 @@ function ReactLivestream(props) {
     }
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     switch (platform) {
       case 'mixer':
         processMixerStream()
@@ -177,7 +176,10 @@ function ReactLivestream(props) {
   }, [])
 
   return isLive ? (
-    <div className="ReactLivestream" css={iframeWrapperStyles}>
+    <div
+      className="ReactLivestream"
+      // css={iframeWrapperStyles}
+    >
       {embedIframe()}
     </div>
   ) : offlineComponent ? (
