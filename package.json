@@ -1,11 +1,14 @@
 {
   "name": "react-livestream",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Ryan Harris <harrisryan1@gmail.com> (https://ryanharris.dev)",
   "description": "Automatically embed your livestream in your React app whenever you go live!",
   "source": "./src/index.js",
   "main": "./dist/index.js",
   "module": "./dist/index.m.js",
+  "files": [
+    "dist/"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
