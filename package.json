@@ -1,6 +1,6 @@
 {
   "name": "react-livestream",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": "Ryan Harris <harrisryan1@gmail.com> (https://ryanharris.dev)",
   "description": "Automatically embed your livestream in your React app whenever you go live!",
   "source": "src/index.js",
@@ -27,7 +27,7 @@
     "youtube"
   ],
   "scripts": {
-    "build": "microbundle --external react,react-dom --jsx React.createElement",
+    "build": "microbundle --external react,react-dom --jsx React.createElement --css-modules true",
     "dev": "yarn build watch",
     "lint": "eslint --config .eslintrc src/**/*"
   },
