@@ -3,10 +3,10 @@
   "version": "1.0.5",
   "author": "Ryan Harris <harrisryan1@gmail.com> (https://ryanharris.dev)",
   "description": "Automatically embed your livestream in your React app whenever you go live!",
-  "source": "./src/index.js",
-  "main": "./dist/index.js",
-  "module": "./dist/index.m.js",
-  "unpkg": "dist/index.umd.js",
+  "source": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "umd:main": "dist/index.umd.js",
   "files": [
     "dist",
     "src",
@@ -27,7 +27,7 @@
     "youtube"
   ],
   "scripts": {
-    "build": "microbundle",
+    "build": "microbundle --",
     "dev": "microbundle watch",
     "lint": "eslint --config .eslintrc src/**/*"
   },
