@@ -28,11 +28,10 @@
   ],
   "scripts": {
     "build": "microbundle --external react,react-dom --jsx React.createElement",
-    "dev": "microbundle watch",
+    "dev": "yarn build watch",
     "lint": "eslint --config .eslintrc src/**/*"
   },
   "devDependencies": {
-    "@emotion/core": "^10.0.28",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",

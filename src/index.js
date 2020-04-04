@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import './styles.css'
+
 const MIXER_API_URL = 'https://mixer.com/api/v1/channels/'
 const TWITCH_API_URL = 'https://api.twitch.tv/helix/streams?user_login='
 
@@ -17,22 +19,6 @@ function ReactLivestream(props) {
 
   const [isLive, setIsLive] = React.useState(false)
   const [youtubeVideoId, setYoutubeVideoId] = React.useState(null)
-
-  // const iframeWrapperStyles = css`
-  //   position: relative;
-  //   &::before {
-  //     content: '';
-  //     display: block;
-  //     padding-bottom: calc(100% / (16 / 9));
-  //   }
-  // `
-  // const iframeStyles = css`
-  //   position: absolute;
-  //   top: 0;
-  //   left: 0;
-  //   width: 100%;
-  //   height: 100%;
-  // `
 
   function fetchTwitchData() {
     fetch(`${TWITCH_API_URL}${twitchUserName}`, {
@@ -125,7 +111,7 @@ function ReactLivestream(props) {
       case 'mixer':
         return (
           <iframe
-            // css={iframeStyles}
+            className="ReactLivestream__iframe"
             i18n-title="channel#ShareDialog:playerEmbedFrame|Embed player Frame copied from share dialog"
             allowFullScreen="true"
             src={`https://mixer.com/embed/player/${mixerChannelId}?disableLowLatency=1`}
@@ -134,7 +120,7 @@ function ReactLivestream(props) {
       case 'twitch':
         return (
           <iframe
-            // css={iframeStyles}
+            className="ReactLivestream__iframe"
             allowFullScreen
             src={`https://player.twitch.tv/?channel=${twitchUserName}`}
             frameBorder="0"
@@ -143,7 +129,7 @@ function ReactLivestream(props) {
       case 'youtube':
         return (
           <iframe
-            // css={iframeStyles}
+            className="ReactLivestream__iframe"
             src={`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&mute=1`}
             frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -173,12 +159,7 @@ function ReactLivestream(props) {
   }, [])
 
   return isLive ? (
-    <div
-      className="ReactLivestream"
-      // css={iframeWrapperStyles}
-    >
-      {embedIframe()}
-    </div>
+    <div className="ReactLivestream">{embedIframe()}</div>
   ) : offlineComponent ? (
     offlineComponent
   ) : null
