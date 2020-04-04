@@ -1,5 +1,4 @@
 import React from 'react'
-// import { css, jsx } from '@emotion/core'
 import PropTypes from 'prop-types'
 
 const MIXER_API_URL = 'https://mixer.com/api/v1/channels/'
@@ -151,8 +150,6 @@ function ReactLivestream(props) {
             allowFullScreen
           ></iframe>
         )
-
-        break
     }
   }
 
