@@ -27,7 +27,7 @@
     "youtube"
   ],
   "scripts": {
-    "build": "microbundle --external react react-dom --jsx React.createElement",
+    "build": "microbundle --external react,react-dom --jsx React.createElement",
     "dev": "microbundle watch",
     "lint": "eslint --config .eslintrc src/**/*"
   },
