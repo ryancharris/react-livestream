@@ -27,9 +27,9 @@
     "youtube"
   ],
   "scripts": {
-    "build": "microbundle --external react,react-dom --jsx React.createElement --css-modules true",
+    "build": "microbundle --external react,react-dom --jsx React.createElement",
     "dev": "yarn build watch",
-    "lint": "eslint --config .eslintrc src/**/*"
+    "lint": "eslint --config .eslintrc --ext .js,.jsx src/"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
