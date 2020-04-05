@@ -1,10 +1,27 @@
 import React from 'react'
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
-
-import './index.css'
 
 const MIXER_API_URL = 'https://mixer.com/api/v1/channels/'
 const TWITCH_API_URL = 'https://api.twitch.tv/helix/streams?user_login='
+
+const StyledIframeWrapper = styled.div`
+  position: relative;
+
+  &:before {
+    content: '';
+    display: block;
+    padding-bottom: calc(100% / (16 / 9));
+  }
+`
+
+const StyledIframe = styled.iframe`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`
 
 function ReactLivestream(props) {
   const {
@@ -110,31 +127,28 @@ function ReactLivestream(props) {
     switch (platform) {
       case 'mixer':
         return (
-          <iframe
-            className="ReactLivestream__iframe"
+          <StyledIframe
             i18n-title="channel#ShareDialog:playerEmbedFrame|Embed player Frame copied from share dialog"
             allowFullScreen="true"
             src={`https://mixer.com/embed/player/${mixerChannelId}?disableLowLatency=1`}
-          ></iframe>
+          ></StyledIframe>
         )
       case 'twitch':
         return (
-          <iframe
-            className="ReactLivestream__iframe"
+          <StyledIframe
             allowFullScreen
             src={`https://player.twitch.tv/?channel=${twitchUserName}`}
             frameBorder="0"
-          ></iframe>
+          ></StyledIframe>
         )
       case 'youtube':
         return (
-          <iframe
-            className="ReactLivestream__iframe"
+          <StyledIframe
             src={`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&mute=1`}
             frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-          ></iframe>
+          ></StyledIframe>
         )
     }
   }
@@ -159,7 +173,7 @@ function ReactLivestream(props) {
   }, [])
 
   return isLive ? (
-    <div className="ReactLivestream">{embedIframe()}</div>
+    <StyledIframeWrapper>{embedIframe()}</StyledIframeWrapper>
   ) : offlineComponent ? (
     offlineComponent
   ) : null
@@ -169,7 +183,11 @@ export default ReactLivestream
 
 ReactLivestream.propTypes = {
   mixerChannelId: PropTypes.number,
-  offlineComponent: PropTypes.element,
+  offlineComponent: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.elementType,
+    PropTypes.func
+  ]),
   platform: PropTypes.string.isRequired,
   twitchClientId: PropTypes.string,
   twitchUserName: PropTypes.string,
