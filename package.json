@@ -27,7 +27,7 @@
     "youtube"
   ],
   "scripts": {
-    "build": "microbundle --external react,react-dom --jsx React.createElement",
+    "build": "microbundle --external react,react-dom,styled-components --globals styled-components=styled --jsx React.createElement",
     "dev": "yarn build watch",
     "lint": "eslint --config .eslintrc --ext .js,.jsx src/"
   },
@@ -46,7 +46,6 @@
   },
   "peerDependencies": {
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "styled-components": "^5.0.1"
+    "react-dom": "^16.13.1"
   }
 }
