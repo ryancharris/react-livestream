@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import './styles.css'
+import './index.css'
 
 const MIXER_API_URL = 'https://mixer.com/api/v1/channels/'
 const TWITCH_API_URL = 'https://api.twitch.tv/helix/streams?user_login='
