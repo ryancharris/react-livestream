@@ -2,7 +2,9 @@
   "name": "react-livestream",
   "version": "2.0.0",
   "author": "Ryan Harris <harrisryan1@gmail.com> (https://ryanharris.dev)",
-  "contributors": ["Iván López Hdez <ivanlhz@gmail.com>"],
+  "contributors": [
+    "Iván López Hdez <ivanlhz@gmail.com>"
+  ],
   "description": "Automatically embed your livestream in your React app whenever you go live!",
   "source": "src/index.js",
   "main": "dist/index.js",
@@ -40,6 +42,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-knobs": "^5.3.18",
     "@storybook/addon-links": "^5.3.18",
     "@storybook/react": "^5.3.18",
     "babel-eslint": "^10.1.0",
