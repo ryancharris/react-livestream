@@ -81,8 +81,7 @@ function ReactLivestream(props) {
     )
       .then(async res => {
         const response = await res.json()
-
-        if (response.items && response.items.length > 1) {
+        if (response.items && response.items.length >= 1) {
           const streamInfo = response.items[0]
           setIsLive(true)
           setYoutubeVideoId(streamInfo.id.videoId)
