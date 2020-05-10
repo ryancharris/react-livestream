@@ -56,12 +56,12 @@ function ReactLivestream(props) {
   }
 
   function fetchMixerData() {
-    fetch(`${MIXER_API_URL}${mixerChannelId}/broadcast`)
+    fetch(`${MIXER_API_URL}${mixerChannelId}`)
       .then(async res => {
         const response = await res.json()
-        const { channelId, online } = response
+        const { token, online } = response
 
-        if (channelId === mixerChannelId && online) {
+        if (token === mixerChannelId && online) {
           setIsLive(true)
         }
       })
