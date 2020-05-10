@@ -1,9 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-
-const MIXER_API_URL = 'https://mixer.com/api/v1/channels/'
-const TWITCH_API_URL = 'https://api.twitch.tv/helix/streams?user_login='
+import { useCheckLive } from './customHooks/useCheckLive'
 
 const StyledIframeWrapper = styled.div`
   position: relative;
@@ -34,93 +32,14 @@ function ReactLivestream(props) {
     youtubeApiKey
   } = props
 
-  const [isLive, setIsLive] = React.useState(false)
-  const [youtubeVideoId, setYoutubeVideoId] = React.useState(null)
-
-  function fetchTwitchData() {
-    fetch(`${TWITCH_API_URL}${twitchUserName}`, {
-      headers: {
-        'Client-ID': twitchClientId
-      }
-    })
-      .then(async res => {
-        const response = await res.json()
-        const streamInfo = Boolean(response.data && response.data[0])
-        if (streamInfo) {
-          setIsLive(true)
-        }
-      })
-      .catch(err => {
-        console.log('Error fetching data from Twitch API: ', err)
-      })
-  }
-
-  function fetchMixerData() {
-    fetch(`${MIXER_API_URL}${mixerChannelId}`)
-      .then(async res => {
-        const response = await res.json()
-        const { token, online } = response
-
-        if (token === mixerChannelId && online) {
-          setIsLive(true)
-        }
-      })
-      .catch(err => {
-        console.log('Error fetching data from Mixer API: ', err)
-      })
-  }
-
-  function fetchYoutubeData() {
-    fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${youtubeChannelId}&eventType=live&type=video&key=${youtubeApiKey}`,
-      {
-        headers: {
-          Accept: 'application/json'
-        }
-      }
-    )
-      .then(async res => {
-        const response = await res.json()
-        if (response.items && response.items.length >= 1) {
-          const streamInfo = response.items[0]
-          setIsLive(true)
-          setYoutubeVideoId(streamInfo.id.videoId)
-        }
-      })
-      .catch(err => {
-        console.log('Error fetching data from YouTube API: ', err)
-      })
-  }
-
-  function processMixerStream() {
-    if (mixerChannelId) {
-      fetchMixerData()
-    } else {
-      console.error(
-        '[react-livestream] Mixer support requires a mixerChannelId prop'
-      )
-    }
-  }
-
-  function processTwitchStream() {
-    if (twitchClientId && twitchUserName) {
-      fetchTwitchData()
-    } else {
-      console.error(
-        '[react-livestream] Twitch support requires a twitchClientId and twitchUserName prop'
-      )
-    }
-  }
-
-  function processYoutubeStream() {
-    if (youtubeChannelId && youtubeApiKey) {
-      fetchYoutubeData()
-    } else {
-      console.error(
-        '[react-livestream] YouTube support requires a youtubeApiKey and youtubeChannelId prop'
-      )
-    }
-  }
+  const [isLive, youtubeVideoId] = useCheckLive(
+    platform,
+    twitchClientId,
+    twitchUserName,
+    youtubeChannelId,
+    youtubeApiKey,
+    mixerChannelId
+  )
 
   function embedIframe() {
     switch (platform) {
@@ -151,25 +70,6 @@ function ReactLivestream(props) {
         )
     }
   }
-
-  React.useEffect(() => {
-    switch (platform) {
-      case 'mixer':
-        processMixerStream()
-        break
-      case 'twitch':
-        processTwitchStream()
-        break
-      case 'youtube':
-        processYoutubeStream()
-        break
-      default:
-        console.error(
-          '[react-livestream] Platform prop is required for this package to work 🤘'
-        )
-        break
-    }
-  }, [])
 
   return isLive ? (
     <StyledIframeWrapper>{embedIframe()}</StyledIframeWrapper>
