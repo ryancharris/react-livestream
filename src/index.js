@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 const MIXER_API_URL = 'https://mixer.com/api/v1/channels/'
-const TWITCH_API_URL = 'https://api.twitch.tv/helix/streams?user_login='
 
 const StyledIframeWrapper = styled.div`
   position: relative;
@@ -25,28 +24,24 @@ const StyledIframe = styled.iframe`
 
 function ReactLivestream(props) {
   const {
-    twitchClientId,
     mixerChannelId,
     offlineComponent,
     platform,
     twitchUserName,
     youtubeChannelId,
-    youtubeApiKey
+    youtubeApiKey,
+    twitchDataUrl
   } = props
 
   const [isLive, setIsLive] = React.useState(false)
   const [youtubeVideoId, setYoutubeVideoId] = React.useState(null)
 
   function fetchTwitchData() {
-    fetch(`${TWITCH_API_URL}${twitchUserName}`, {
-      headers: {
-        'Client-ID': twitchClientId
-      }
-    })
+    fetch(twitchDataUrl)
       .then(async res => {
         const response = await res.json()
         const streamInfo = Boolean(response.data && response.data[0])
-        if (streamInfo) {
+        if (streamInfo && response.data[0].type === 'live') {
           setIsLive(true)
         }
       })
@@ -104,11 +99,11 @@ function ReactLivestream(props) {
   }
 
   function processTwitchStream() {
-    if (twitchClientId && twitchUserName) {
+    if (twitchDataUrl && twitchUserName) {
       fetchTwitchData()
     } else {
       console.error(
-        '[react-livestream] Twitch support requires a twitchClientId and twitchUserName prop'
+        '[react-livestream] Twitch support requires a twitchDataUrl and twitchUserName prop'
       )
     }
   }
@@ -189,17 +184,17 @@ ReactLivestream.propTypes = {
     PropTypes.func
   ]),
   platform: PropTypes.string.isRequired,
-  twitchClientId: PropTypes.string,
   twitchUserName: PropTypes.string,
   youtubeChannelId: PropTypes.string,
-  youtubeApiKey: PropTypes.string
+  youtubeApiKey: PropTypes.string,
+  twitchDataUrl: PropTypes.string
 }
 
 ReactLivestream.defaultProps = {
   mixerChannelId: null,
   offlineComponent: null,
-  twitchClientId: null,
   twitchUserName: null,
   youtubeChannelId: null,
-  youtubeApiKey: null
+  youtubeApiKey: null,
+  twitchDataUrl: null
 }
